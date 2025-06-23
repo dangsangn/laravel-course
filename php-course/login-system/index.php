@@ -1,3 +1,8 @@
+<?php
+    require_once 'includes/signup/signup_view.inc.php';
+    require_once 'includes/session_config.inc.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,12 +21,17 @@
     <div style="height: 1px; background-color: black; margin: 20px 0;"></div>
 
     <h1>Sign Up</h1>
-    <form action="includes/signup.inc.php" method="post">
+    <form action="includes/signup/signup.inc.php" method="post">
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="pwd" placeholder="Password">
         <input type="text" name="email" placeholder="Email">
         <button type="submit" name="signup-submit">Sign Up</button>
     </form>
+
+    <?php 
+        show_alerts();
+    ?>
+
     
 </body>
 </html>
