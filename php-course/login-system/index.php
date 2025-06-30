@@ -1,5 +1,6 @@
 <?php
     require_once 'includes/signup/signup_view.inc.php';
+    require_once 'includes/signin/signin_view.inc.php';
     require_once 'includes/session_config.inc.php';
 ?>
 
@@ -21,12 +22,9 @@
     <div style="height: 1px; background-color: black; margin: 20px 0;"></div>
 
     <h1>Sign Up</h1>
-    <form action="includes/signup/signup.inc.php" method="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="pwd" placeholder="Password">
-        <input type="text" name="email" placeholder="Email">
-        <button type="submit" name="signup-submit">Sign Up</button>
-    </form>
+    <?php
+        render_signup_form();
+    ?>
 
     <?php 
         show_alerts();

@@ -1,12 +1,11 @@
 <?php
 require_once('../dbh.inc.php');
-require_once('signup_model.inc.php');
-require_once('signup_contr.inc.php');
+require_once('signin_model.inc.php');
+require_once('signin_contr.inc.php');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $username = $_POST['username'];
   $pwd = $_POST['pwd'];
-  $email = $_POST['email'];
 
   try {
     // Error handling
@@ -14,14 +13,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(is_input_empty($username, $pwd, $email)) {
       $errors['empty_input'] = 'Fill in all fields!';
     }
-    if(is_email_invalid($email)) {
-      $errors['email_invalid'] = 'Invalid email!';
-    }
     if(is_username_taken($username, $pdo)) {
       $errors['username_taken'] = 'Username already taken!';
-    }
-    if(is_email_taken($email, $pdo)) {
-      $errors['email_taken'] = 'Email already taken!';
     }
 
     require_once('../session_config.inc.php');

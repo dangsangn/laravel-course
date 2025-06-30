@@ -19,6 +19,15 @@ return new class extends Migration
             $table->integer('price');
             $table->string('vin', 255);
             $table->integer('mileage');
+            $table->foreignId('car_type_id')->constrained('car_types');
+            $table->foreignId('fuel_type_id')->constrained('fuel_types');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('city_id')->constrained('cities');
+            $table->string('address', 255);
+            $table->string('phone', 45);
+            $table->longText('description')->nullable();
+            $table->timestamp('published_at')->nullable();
+            $table->timestamp('deleted_at')->useCurrent();
             $table->timestamps();
         });
     }
