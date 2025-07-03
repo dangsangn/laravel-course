@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('phone', 45);
             $table->longText('description')->nullable();
             $table->timestamp('published_at')->nullable();
-            $table->timestamp('deleted_at')->useCurrent();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
