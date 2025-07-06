@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Car extends Model
+class Car extends EloquentModel
 {
     use HasFactory, SoftDeletes;
 
@@ -70,7 +71,8 @@ class Car extends Model
     public function primaryImage(): HasOne
     {
         return $this->hasOne(CarImage::class)
-            ->oldestOfMany('primary');
+            ->orderBy('position')
+            ->oldestOfMany();
     }
 
     public function images(): HasMany
@@ -81,5 +83,10 @@ class Car extends Model
     public function favouredUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'favorite_cars');
+    }
+
+    public function getCreatedAt(): string
+    {
+        return Carbon::parse($this->created_at)->format('y-M-d');
     }
 }

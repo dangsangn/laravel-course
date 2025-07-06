@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -11,7 +14,14 @@ class CarController extends Controller
      */
     public function index()
     {
-        return view('cars.index');
+        $user = User::find(1);
+
+        if ($user) {
+            $cars = $user->cars()->with('primaryImage', 'model', 'maker',)->orderBy('created_at', 'desc')->get();
+        } else {
+            $cars = [];
+        }
+        return view('cars.index', ['cars' => $cars]);
     }
 
     /**
@@ -33,9 +43,9 @@ class CarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Car $car)
     {
-        return view('cars.show', ['id' => $id]);
+        return view('cars.show', ['car' => $car]);
     }
 
     /**
@@ -64,6 +74,21 @@ class CarController extends Controller
 
     public function search(Request $request)
     {
-        return view('cars.search');
+        $query = Car::with('primaryImage', 'model', 'maker', 'carType', 'fuelType', 'city');
+
+        $cars = $query->paginate(5);
+
+        return view('cars.search', ['cars' => $cars]);
+    }
+
+    public function watchedList()
+    {
+        $user = User::find(1);
+        if ($user) {
+            $cars = $user->favoriteCars()->with('primaryImage', 'model', 'maker', 'carType', 'fuelType', 'city')->get();
+        } else {
+            $cars = [];
+        }
+        return view('cars.watched-list', ['cars' => $cars]);
     }
 }

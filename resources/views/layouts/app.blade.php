@@ -1,9 +1,7 @@
-@props(['title'=> ''])
+@props(['title'=> '', 'className'=> ''])
 
-<x-base-layout  :$title>
+<x-base-layout  :$title :$className>
    <x-layout.header />
    {{ $slot }}
    <x-layout.footer />
 </x-base-layout>
-
-4:08
