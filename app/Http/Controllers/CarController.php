@@ -74,7 +74,7 @@ class CarController extends Controller
 
     public function search(Request $request)
     {
-        $query = Car::with('primaryImage', 'model', 'maker', 'carType', 'fuelType', 'city');
+        $query = Car::where('published_at', '<', now())->with('primaryImage', 'model', 'maker', 'carType', 'fuelType', 'city')->orderBy('published_at', 'desc');
 
         $cars = $query->paginate(5);
 

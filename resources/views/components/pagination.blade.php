@@ -1,9 +1,5 @@
 @props(['paginator'])
 
-{{-- <?php
-    dd($paginator->links());
-?> --}}
-
 @if ($paginator->hasPages())
     <div class="search-cars-results">
         <nav class="pagination my-large">
@@ -27,8 +23,7 @@
                 @if (is_string($element))
                     <span class="pagination-item"> {{ $element }} </span>
                 @endif
-
-                @if(is_array($element))
+                @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
                             <span class="pagination-item active"> {{ $page }} </span>
@@ -37,13 +32,7 @@
                         @endif
                     @endforeach
                 @endif
-            @endforeach  
-
-            <a href="#" class="pagination-item"> 1 </a>
-            <a href="#" class="pagination-item"> 2 </a>
-            <span class="pagination-item active"> 3 </span>
-            <a href="#" class="pagination-item"> 4 </a>
-
+            @endforeach
             @if ($paginator->hasMorePages())
                 <a href="{{ $paginator->nextPageUrl() }}" class="pagination-item">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
