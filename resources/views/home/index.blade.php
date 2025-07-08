@@ -1,4 +1,4 @@
-@props(['cars'])
+@props(['cars', 'makers', 'models', 'carTypes', 'fuelTypes', 'states', 'cities'])
 
 @php
   $color = "red";
@@ -106,7 +106,7 @@
 
     <main>
       <!-- Find a car form -->
-      <x-search-form action="/search" method="GET" />
+      <x-search-form action="/search" method="GET" :$makers :$models :$carTypes :$fuelTypes :$states :$cities />
       <!--/ Find a car form -->
 
       <!-- New Cars -->

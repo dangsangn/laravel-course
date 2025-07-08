@@ -36,6 +36,14 @@ class HomeController extends Controller
             ->limit(30)
             ->get();
 
-        return view('home.index', ['cars' => $cars]);
+        // Get dynamic data for search form
+        $makers = Maker::orderBy('name')->get();
+        $models = Model::with('maker')->orderBy('name')->get();
+        $carTypes = CarType::orderBy('name')->get();
+        $fuelTypes = FuelType::orderBy('name')->get();
+        $states = State::orderBy('name')->get();
+        $cities = City::with('state')->orderBy('name')->get();
+
+        return view('home.index', compact('cars', 'makers', 'models', 'carTypes', 'fuelTypes', 'states', 'cities'));
     }
 }
