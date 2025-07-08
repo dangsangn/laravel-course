@@ -17,7 +17,7 @@ class CarController extends Controller
         $user = User::find(1);
 
         if ($user) {
-            $cars = $user->cars()->with('primaryImage', 'model', 'maker',)->orderBy('created_at', 'desc')->get();
+            $cars = $user->cars()->with('primaryImage', 'model', 'maker',)->orderBy('created_at', 'desc')->simplePaginate(2);
         } else {
             $cars = [];
         }
@@ -76,7 +76,7 @@ class CarController extends Controller
     {
         $query = Car::where('published_at', '<', now())->with('primaryImage', 'model', 'maker', 'carType', 'fuelType', 'city')->orderBy('published_at', 'desc');
 
-        $cars = $query->paginate(5);
+        $cars = $query->paginate(1);
 
         return view('cars.search', ['cars' => $cars]);
     }
@@ -85,7 +85,7 @@ class CarController extends Controller
     {
         $user = User::find(1);
         if ($user) {
-            $cars = $user->favoriteCars()->with('primaryImage', 'model', 'maker', 'carType', 'fuelType', 'city')->get();
+            $cars = $user->favoriteCars()->with('primaryImage', 'model', 'maker', 'carType', 'fuelType', 'city')->paginate(2);
         } else {
             $cars = [];
         }

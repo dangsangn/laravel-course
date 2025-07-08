@@ -1,30 +1,39 @@
 <x-guest-layout className="page-signup" title="Signup">
-    <form action="" method="post">
+    <form action="{{ route('signup') }}" method="POST">
+        @csrf
         <div class="form-group">
-            <input type="email" placeholder="Your Email" />
+            <input name="name" type="text" placeholder="Name" value="{{ old('name') }}" />
         </div>
         <div class="form-group">
-            <input type="password" placeholder="Your Password" />
+            <input name="email" type="email" placeholder="Your Email" value="{{ old('email') }}" />
         </div>
         <div class="form-group">
-            <input type="password" placeholder="Repeat Password" />
+            <input name="password" type="password" placeholder="Your Password" />
+        </div>
+        <div class="form-group">
+            <input name="password_confirmation" type="password" placeholder="Repeat Password" />
         </div>
         <hr />
         <div class="form-group">
-            <input type="text" placeholder="First Name" />
+            <input name="phone" type="text" placeholder="Phone" />
         </div>
-        <div class="form-group">
-            <input type="text" placeholder="Last Name" />
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Phone" />
-        </div>
-        <button class="btn btn-primary btn-login w-full">Register</button>
+        <button type="submit" class="btn btn-primary btn-login w-full">Register</button>
     </form>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <x-slot:footerLinks>
         <div class="login-text-dont-have-account">
             Already have an account? -
-            <a href="/login.html"> Click here to login </a>
+            <a href="{{ route('show.signin') }}"> Click here to login </a>
         </div>
     </x-slot:footerLinks>
 </x-guest-layout>

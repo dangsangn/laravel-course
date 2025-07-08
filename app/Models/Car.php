@@ -87,6 +87,6 @@ class Car extends EloquentModel
 
     public function getCreatedAt(): string
     {
-        return Carbon::parse($this->created_at)->format('y-M-d');
+        return Carbon::parse($this->created_at)->format('Y-m-d');
     }
 }

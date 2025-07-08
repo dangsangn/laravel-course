@@ -417,7 +417,7 @@
                 <p>No cars found.</p>
               @endforelse
             </div>
-            <x-pagination :paginator="$cars" />
+            {{ $cars->onEachSide(1)->links() }}
           </div>
         </div>
       </div>

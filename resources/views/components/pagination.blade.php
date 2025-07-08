@@ -19,7 +19,7 @@
                 </a>
             @endif
 
-            @foreach ($paginator->elements() as $element)
+            @foreach ($elements as $element)
                 @if (is_string($element))
                     <span class="pagination-item"> {{ $element }} </span>
                 @endif

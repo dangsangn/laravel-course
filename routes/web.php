@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SigninControlller;
-use App\Http\Controllers\SignupControlller;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -12,8 +11,11 @@ Route::get('cars/search', [CarController::class, 'search'])->name('cars.search')
 Route::get('cars/watched-list', [CarController::class, 'watchedList'])->name('cars.watched-list');
 Route::resource('cars', CarController::class);
 
-Route::get('/signup', [SignupControlller::class, 'create'])->name('signup');
-Route::get('/signin', [SigninControlller::class, 'create'])->name('signin');
+Route::get('/signup', [AuthController::class, 'showSignup'])->name('show.signup');
+Route::get('/signin', [AuthController::class, 'showSignin'])->name('show.signin');
+Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
+Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/about', function() {
     return view('about');
